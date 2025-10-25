@@ -26,3 +26,4 @@ class Relacionamento(BaseModel):
 
 class PostCurtido(BaseModel):
     id_usuario: int
+    id_post: str
