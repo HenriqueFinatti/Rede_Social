@@ -1,7 +1,7 @@
 
 export async function adicionar_usuario(usuarios) {
   try {
-    const response = await fetch("http://127.0.0.1:8000/usuarios/add", {
+    const response = await fetch("http://127.0.0.1:8000/usuarios/adicionar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -10,7 +10,7 @@ export async function adicionar_usuario(usuarios) {
     });
 
     const data = await response.json();
-    console.log(data); 
+    console.log(data);
   } catch (error) {
     console.error("Erro ao adicionar usuário:", error);
   }
@@ -65,5 +65,22 @@ export async function buscar_usuarios() {
   } 
   catch (error) {
     console.error("Erro ao buscar usuários:", error);
+  }
+}
+
+export async function buscar_usuario_por_id(id){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_especifico?usuario_email=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    console.log(data.usuario)
+    return data.usuario
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
   }
 }
