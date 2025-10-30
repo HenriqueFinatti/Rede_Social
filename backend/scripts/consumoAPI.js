@@ -68,9 +68,9 @@ export async function buscar_usuarios() {
   }
 }
 
-export async function buscar_usuario_por_id(id){
+export async function buscar_usuario_por_id(user_email){
   try{
-    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_especifico?usuario_email=${id}`, {
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_especifico?usuario_email=${user_email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
