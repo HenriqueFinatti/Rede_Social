@@ -1,4 +1,4 @@
-import * as funcoes from '../backend/scripts/consumoAPI.js';
+import * as funcoes from '../../backend/scripts/consumoAPI.js';
 
 document.getElementById("btn-cadastrar").addEventListener("click", () => {
   // Pegando os valores dos inputs
