@@ -112,3 +112,23 @@ for(let i = 0; i < ids.length; i++){
 }
 
 await funcoes.adicionar_muitos_relacionamentos(lista_relacionamentos)
+const posts = await funcoes.visualizar_todos_posts()
+const posts_ids = []
+
+for(let i = 0; i < posts.length; i++){
+  posts_ids.push(posts[i]._id);
+}
+
+for(let i = 0; i < ids.length; i++){
+  const qtd_posts_curtidos = Math.floor(Math.random() * 3) + 3;
+  for(let j = 0; j < qtd_posts_curtidos; j++){
+    let post_id = posts_ids[Math.floor(Math.random() * posts_ids.length)]
+
+    const post = {
+      id_usuario: parseInt(ids[i]),
+      id_post: post_id
+    }
+
+    funcoes.inserir_post_curtido(post);
+  }
+}
