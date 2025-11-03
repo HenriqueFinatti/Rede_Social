@@ -1,28 +1,63 @@
 import * as funcoes from '../../backend/scripts/consumoAPI.js';
 
-document.getElementById("buscar").addEventListener("click", carregarUsuarios);
-
-document.getElementById("btn-login").addEventListener("click", () => {
-  // Pegando os valores dos inputs
-  const email = document.getElementById("email-login").value;
-  const senha = document.getElementById("senha-login").value;
-  buscar_usuario(email, senha);
-}); 
-
-async function carregarUsuarios() {
-  const usuarios = await funcoes.buscar_usuarios();
-  const nomeElemento = document.getElementById("nome_usuario");
-  nomeElemento.textContent = `Bem-vindo, ${usuarios[0].nome} - ${usuarios[0].id}!`;
-  console.log(usuarios); // mostra no console
+async function carregarSeguidores(id_usuario) {
+    const seguidores = await funcoes.visualizar_seguidores(id_usuario)
+    const nomeElemento = document.getElementById("seguidores");
+    const seguidoresArray = Object.values(seguidores);
+    const quantidade = seguidoresArray.length;
+    nomeElemento.textContent = "Seguidores: " + quantidade;
 }
 
-
-async function buscar_usuario(usuario_email, senha){
-  const usuario = await funcoes.buscar_usuario_por_id(usuario_email);
-  const nomeElemento = document.getElementById("email_usuario");
-  if (senha === usuario.senha){
-    nomeElemento.textContent = `Bem-vindo ${usuario.nome}`
-  } else {
-    nomeElemento.textContent = 'Senha incorreta'
-  }
+async function carregarSeguindo(id_usuario) {
+    const seguindo = await funcoes.visualizar_seguindo(id_usuario)
+    const nomeElemento = document.getElementById("seguindo");
+    const seguindoArray = Object.values(seguindo);
+    const quantidade = seguindoArray.length;
+    nomeElemento.textContent = "Seguidores: " + quantidade;
 }
+
+async function ver_posts() {
+    const posts = await funcoes.visualizar_todos_posts()
+    const feed = document.getElementById("feed");
+    feed.innerHTML = "";
+    
+    for (const post of posts) {
+
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("post");
+
+        const usuario = await funcoes.buscar_usuario_por_id(post.id_usario);
+        const nomeUsuario = usuario?.nome || "Usuário desconhecido";
+
+        const imagensHTML = post.foto_url
+            .map(url => `<img src="${url}" class="foto-post" alt="Post de ${nomeUsuario}">`)
+            .join("");
+
+        const legenda = post.foto_comentario || "";
+
+        postDiv.innerHTML = `
+            <div class="post-cabecalho">
+                <strong>${nomeUsuario}</strong>
+            </div>
+            <div class="post-imagens">${imagensHTML}</div>
+            <div class="post-legenda">${legenda}</div>
+            <div class="post-info">
+                ❤️ ${post.curtidas || 0} curtidas
+            </div>
+        `;
+
+        feed.appendChild(postDiv);
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const usernameString = localStorage.getItem("username")
+    const idString = localStorage.getItem("id")
+
+    const username = document.getElementById("username")
+    username.textContent = "Bem vindo " + usernameString
+    // carregarSeguidores(idString)
+    // carregarSeguindo(idString)
+    // ver_posts()
+
+})

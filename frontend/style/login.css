@@ -94,20 +94,20 @@ button:hover {
 }
 
 /* ====== LINK DE LOGIN ====== */
-.link-login {
+.link-cadastro {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.9rem;
 }
 
-.link-login a {
+.link-cadastro a {
   color: #00c6ff;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
-.link-login a:hover {
+.link-cadastro a:hover {
   color: #0072ff;
 }
 

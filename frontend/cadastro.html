@@ -3,19 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="style/cadastro.css">
     <script type="module" src="./scripts/cadastro.js"></script>
-    <title>Cadastre-se</title>
 </head>
 
 <body>
-    Name: <input id="nome" type="text">
-    Email: <input id="email" type="text">    
-    Senha: <input id="senha" type="text">
-    Usuário: <input id="username" type="text">
-    Pais: <input id="pais" type="text">
+    <main>
+        <section class="cadastro-section" aria-labelledby="titulo-cadastro">
+            <h1 id="titulo-cadastro">Crie sua conta</h1>
+            <p>Preencha os campos abaixo para se cadastrar na plataforma.</p>
 
-    <button id="btn-cadastrar">Cadastrar</button>
+            <form id="form-cadastro" autocomplete="on">
+                <div class="campo-form">
+                    <label for="nome">Nome completo</label>
+                    <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required>
+                </div>
 
+                <div class="campo-form">
+                    <label for="email">E-mail</label>
+                    <input id="email" name="email" type="email" placeholder="exemplo@dominio.com" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="senha">Senha</label>
+                    <input id="senha" name="senha" type="password" placeholder="Crie uma senha segura" required minlength="6">
+                </div>
+
+                <div class="campo-form">
+                    <label for="username">Nome de usuário</label>
+                    <input id="username" name="username" type="text" placeholder="@usuario" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="pais">País</label>
+                    <input id="pais" name="pais" type="text" placeholder="Seu país de origem" required>
+                </div>
+
+                <button type="submit" id="btn-cadastrar">Cadastrar</button>
+            </form>
+
+            <p class="link-login">
+                Já possui uma conta?
+                <a href="login.html">Fazer login</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Sua Plataforma — Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

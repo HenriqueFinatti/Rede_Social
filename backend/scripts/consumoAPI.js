@@ -66,7 +66,7 @@ export async function buscar_usuarios() {
   }
 }
 
-export async function buscar_usuario_por_id(user_email){
+export async function buscar_usuario_por_email(user_email){
   try{
     const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_especifico?usuario_email=${user_email}`, {
       method: "GET",
@@ -76,6 +76,88 @@ export async function buscar_usuario_por_id(user_email){
     });
     const data = await response.json();
     return data.usuario
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function buscar_usuario_por_id(user_id){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_especifico_por_id?usuario_id=${user_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    return data.usuario
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function alterar_senha(user_email, nova_senha){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/atualizar_senha?usuario_email=${user_email}&nova_senha=${nova_senha}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    return data
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function visualizar_seguidores(id_usuario){
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_seguidores?id_usuario=${id_usuario}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    return data.Seguidores
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function visualizar_seguindo(id_usuario) {
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/usuarios/visualizar_seguindos?id_seguidor=${id_usuario}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    return data.Seguindos
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function visualizar_todos_posts() {
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/posts/visualizar_todos`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    return data
   }
   catch (error){
     console.error("Erro ao buscar usuário por ID:", error);
