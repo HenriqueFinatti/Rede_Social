@@ -51,6 +51,27 @@ def ver_usuario_especifico(usuario_email: str):
     except Exception as e:
         print("Erro na conexão:", e)
         return {"erro": str(e)}
+    
+@router.get("/usuarios/visualizar_especifico_por_id")
+def ver_usuario_especifico_por_id(usuario_id: str):
+    engine = conexao_postgress()
+    try:
+        with engine.connect() as conn:
+            query = conn.execute(
+                text("SELECT * FROM USUARIOS WHERE ID = :id"),
+                {"id": usuario_id}
+            )
+            usuario = query.fetchone() 
+            print(usuario)
+            if usuario:
+                return {
+                    "usuario": dict(usuario._mapping)
+                }
+            else:
+                return {"usuario": "Não encontrado"}            
+    except Exception as e:
+        print("Erro na conexão:", e)
+        return {"erro": str(e)}
 
 @router.post("/usuarios/adicionar")
 def adicionar_usuario(usuario: Usuario):
