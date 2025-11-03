@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/alterar_senha.css">
-    <script type="module" src="./scripts/alterar_senha.js"></script>
-    <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style/alterar_senha.css">
+  <script type="module" src="./scripts/alterar_senha.js"></script>
+  <title>Alterar Senha</title>
 </head>
 <body>
+  <main>
+    <section class="container-alterar-senha">
+      <h1>Alterar Senha</h1>
 
-    Email: <input id="email" type="text">
-    Senha: <input id="senha" type="text">
-    Nova Senha: <input id="nova-senha" type="text">
-    <button id="btn-trocar-senha">Trocar Senha</button>
+      <form id="form-alterar-senha">
+        <div class="campo-form">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="text" required>
+        </div>
 
-    <br/>
+        <div class="campo-form">
+          <label for="senha">Senha atual</label>
+          <input id="senha" name="senha" type="text" required>
+        </div>
 
-    <h3 id="senha-alterada"></h3>
+        <div class="campo-form">
+          <label for="nova-senha">Nova senha</label>
+          <input id="nova-senha" name="nova-senha" type="text" required>
+        </div>
 
-    <a href="index.html">Página Principal</a>
-    <br>
+        <button type="submit" id="btn-trocar-senha">Trocar senha</button>
+      </form>
 
+      <p id="senha-alterada" role="status" aria-live="polite"></p>
 
+      <nav>
+        <a href="index.html">Voltar à página principal</a>
+      </nav>
+    </section>
+  </main>
 </body>
 </html>

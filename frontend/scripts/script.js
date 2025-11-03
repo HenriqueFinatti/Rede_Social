@@ -16,11 +16,16 @@ async function carregarSeguindo(id_usuario) {
     nomeElemento.textContent = "Seguidores: " + quantidade;
 }
 
+async function curtir_post(body) {
+    const resposta = await funcoes.curtir_post(body)
+    console.log(resposta)
+}
+
 async function ver_posts() {
     const posts = await funcoes.visualizar_todos_posts()
     const feed = document.getElementById("feed");
     feed.innerHTML = "";
-    
+
     for (const post of posts) {
 
         const postDiv = document.createElement("div");
@@ -41,10 +46,24 @@ async function ver_posts() {
             </div>
             <div class="post-imagens">${imagensHTML}</div>
             <div class="post-legenda">${legenda}</div>
+
             <div class="post-info">
-                ❤️ ${post.curtidas || 0} curtidas
+                <button class="btn-like" data-id="${post.id}">❤️ Curtir</button>
+                <span class="contador-curtidas">${post.curtidas || 0}</span> curtidas
             </div>
         `;
+
+        postDiv.querySelector(".btn-like").addEventListener("click", async (event) => {
+            const idPost = event.currentTarget.dataset.id;
+            const idUsuario = localStorage.getItem("id");
+
+            const body = {
+                id_usuario: idUsuario,
+                id_post: idPost
+            };
+
+            curtir_post(body)
+        });
 
         feed.appendChild(postDiv);
     }

@@ -1,10 +1,15 @@
 import * as funcoes from '../../backend/scripts/consumoAPI.js';
 
-document.getElementById("btn-login").addEventListener("click", () => {
-  const email = document.getElementById("email-login").value;
-  const senha = document.getElementById("senha-login").value;
-  buscar_usuario(email, senha);
-}); 
+const formLogin = document.getElementById("form-login");
+
+formLogin.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email-login").value.trim();
+  const senha = document.getElementById("senha-login").value.trim();
+
+  await buscar_usuario(email, senha);
+});
 
 async function buscar_usuario(usuario_email, senha){
   const usuario = await funcoes.buscar_usuario_por_email(usuario_email);

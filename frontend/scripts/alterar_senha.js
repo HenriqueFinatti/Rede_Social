@@ -1,10 +1,15 @@
 import * as funcoes from '../../backend/scripts/consumoAPI.js';
 
-document.getElementById("btn-trocar-senha").addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-  const nova_senha = document.getElementById("nova-senha").value
-  trocar_senha(email, senha, nova_senha);
+const btnTrocarSenha = document.getElementById("btn-trocar-senha");
+
+  btnTrocarSenha.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const nova_senha = document.getElementById("nova-senha").value.trim();
+
+    trocar_senha(email, senha, nova_senha);
 }); 
 
 async function trocar_senha(usuario_email, senha, nova_senha){

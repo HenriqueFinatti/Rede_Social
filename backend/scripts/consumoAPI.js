@@ -166,3 +166,38 @@ export async function visualizar_todos_posts() {
     console.error("Erro ao buscar usuário por ID:", error);
   }
 }
+
+export async function curtir_post(body) {
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/posts_curtidos/inserir`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log(data)
+    return data
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  } 
+}
+
+export async function ver_posts_curtidos(id_usuario) {
+  try{
+    const response = await fetch(`http://127.0.0.1:8000/posts_curtidos/visualizar?id=${id_usuario}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    console.log(data)
+    return data
+  }
+  catch (error){
+    console.error("Erro ao buscar usuário por ID:", error);
+  } 
+}
