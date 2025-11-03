@@ -182,7 +182,7 @@ export async function visualizar_todos_posts() {
 
 export async function inserir_post_curtido(postCurtido) {
   try {
-    const resposta = await fetch("http://localhost:8000/posts_curtidos/inserir?post={postCurtido}", {
+    const resposta = await fetch(`http://localhost:8000/posts_curtidos/inserir?post=${postCurtido}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -198,7 +198,7 @@ export async function inserir_post_curtido(postCurtido) {
 
 export async function visualizar_todas_curtidas(usuario){
   try {
-    const resposta = await fetch("http://localhost:8000/posts_curtidos/visualizar?id=${usuario}", {
+    const resposta = await fetch(`http://localhost:8000/posts_curtidos/visualizar?id=${usuario}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -211,3 +211,4 @@ export async function visualizar_todas_curtidas(usuario){
     console.error("Erro ao visualizar os posts:", erro.message);
   }
 }
+
