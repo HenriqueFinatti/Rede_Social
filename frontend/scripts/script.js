@@ -20,14 +20,13 @@ async function ver_posts() {
     const posts = await funcoes.visualizar_todos_posts()
     const feed = document.getElementById("feed");
     feed.innerHTML = "";
+    
     for (const post of posts) {
+
         const postDiv = document.createElement("div");
         postDiv.classList.add("post");
 
-        // Corrigido: id_usario → id_usuario
         const usuario = await funcoes.buscar_usuario_por_id(post.id_usario);
-
-        // Se o usuário não for encontrado, evita erro
         const nomeUsuario = usuario?.nome || "Usuário desconhecido";
 
         const imagensHTML = post.foto_url
@@ -51,16 +50,14 @@ async function ver_posts() {
     }
 }
 
-document.getElementById("ver_posts").addEventListener("click", ver_posts);
-
 window.addEventListener("DOMContentLoaded", () => {
     const usernameString = localStorage.getItem("username")
     const idString = localStorage.getItem("id")
 
     const username = document.getElementById("username")
     username.textContent = "Bem vindo " + usernameString
-    carregarSeguidores(idString)
-    carregarSeguindo(idString)
-    ver_posts()
+    // carregarSeguidores(idString)
+    // carregarSeguindo(idString)
+    // ver_posts()
 
 })
