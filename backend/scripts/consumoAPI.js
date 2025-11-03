@@ -1,4 +1,3 @@
-
 export async function adicionar_usuario(usuarios) {
   try {
     const response = await fetch("http://127.0.0.1:8000/usuarios/adicionar", {
@@ -10,7 +9,6 @@ export async function adicionar_usuario(usuarios) {
     });
 
     const data = await response.json();
-    console.log(data);
   } catch (error) {
     console.error("Erro ao adicionar usuário:", error);
   }
@@ -77,10 +75,57 @@ export async function buscar_usuario_por_id(user_email){
       },
     });
     const data = await response.json();
-    console.log(data.usuario)
     return data.usuario
   }
   catch (error){
     console.error("Erro ao buscar usuário por ID:", error);
+  }
+}
+
+export async function visualizar_todos_posts() {
+  try{
+    const response = await fetch("http://127.0.0.1:8000/posts/visualizar_todos", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    const data = await response.json();
+    return data
+  }
+  catch (error){
+    console.error("Erro ao buscar os Posts");
+  }
+}
+
+export async function inserir_post_curtido(postCurtido) {
+  try {
+    const resposta = await fetch("http://localhost:8000/posts_curtidos/inserir?post={postCurtido}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postCurtido)
+    });
+    const dados = await resposta.json();
+    console.log(dados);
+  } catch (erro) {
+    console.error("Erro ao inserir post curtido:", erro.message);
+  }
+}
+
+export async function visualizar_todas_curtidas(usuario){
+  try {
+    const resposta = await fetch("http://localhost:8000/posts_curtidos/visualizar?id=${usuario}", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    const dados = await resposta.json();
+    
+  } catch (erro) {
+    console.error("Erro ao visualizar os posts:", erro.message);
   }
 }
