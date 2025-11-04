@@ -8,21 +8,45 @@
     <title>Rede Social</title>
 </head>
 <body>
+    <header>
+        <h1 id="username">Nome do Usuário</h1>
+    </header>
 
-    <h1 id="username"></h1>
+    <main>
+        <section aria-labelledby="info-usuario" class="info-usuario">
+            <h2 id="info-usuario" class="sr-only">Informações do Usuário</h2>
+            
+            <p id="seguidores">
+                <strong>Seguidores:</strong> 
+            </p>
+            <a href="seguidores.html">Ver seguidores</a>
+            <p id="seguindo">
+                <strong>Seguindo:</strong> 
+            </p>
+            <a href="seguindo.html">Ver seguindo</a>
+        </section>
 
-    <p id="seguidores">Seguidores: </p>
-    <a href="seguidores.html">Seguidores Nome</a>    
-    <p id="seguindo">Seguindo: </p>
-    <a href="seguindo.html">Seguindo Nome</a>
+        <section id="feed" aria-labelledby="titulo-feed">
+            <h2 id="titulo-feed" class="sr-only">Feed de Posts</h2>
+        </section>
 
-    <div id="feed"></div>
-    
-   <a href="alterar_senha.html">Mudar senha</a>
+        <section class="novo-post">
+            <h2>Criar novo post</h2>
+            <form id="form-post">
+                <input type="file" id="foto_files" name="foto_files" accept="image/*" multiple required>
+                <textarea id="foto_comentario" name="foto_comentario" placeholder="Escreva uma legenda..." required></textarea>
+                <button type="submit">Publicar</button>
+            </form>
+            <div class="preview-imagem" id="preview-imagem"></div>
+              <p id="mensagem" class="mensagem-status"></p>
+        </section>
+    </main>
 
-   <a href="posts_curtidos.html">Posts Curtidos</a>
-
-
-
+    <footer>
+        <nav class="acoes">
+            <a href="alterar_senha.html" class="botao">Mudar senha</a>
+            <a href="posts_curtidos.html" class="botao">Posts Curtidos</a>
+        </nav>
+    </footer>
 </body>
 </html>

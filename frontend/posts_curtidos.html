@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/style.css">
-    <script type="module" src="./scripts/script.js"></script>
-    <title>Rede Social</title>
+    <title>Posts Curtidos | Rede Social</title>
+
+    <link rel="stylesheet" href="./style/posts_curtidos.css">
+    <script type="module" src="./scripts/posts_curtidos.js"></script>
 </head>
 <body>
-    <div id="posts-curtidos"></div>
+    <header class="topo">
+        <h1>Posts Curtidos</h1>
+        <nav aria-label="Navegação principal">
+            <a href="index.html" class="link-voltar">← Voltar para a página inicial</a>
+        </nav>
+    </header>
 
-    <a href="index.html">Voltar para a página inicial</a>
+    <main id="conteudo-principal">
+        <section id="posts-curtidos" aria-live="polite" aria-busy="true">
+        </section>
+    </main>
 
+    <footer class="rodape">
+        <p>&copy; 2025 - Rede Social | Todos os direitos reservados</p>
+    </footer>
 </body>
 </html>

@@ -17,57 +17,100 @@ async function carregarSeguindo(id_usuario) {
 }
 
 async function curtir_post(body) {
-    const resposta = await funcoes.inserir_post_curtido(body)
-    console.log(resposta)
+  const resposta = await funcoes.inserir_post_curtido(body);
+  const curtida = await funcoes.adicionar_curtida_post(body.id_post);
+  console.log("Enviando ID para curtir:", body.id_post);
+  console.log("Resposta da API:", resposta);
+  console.log(curtida)
 }
 
+
+// Renderiza os posts
 async function ver_posts() {
-    const posts = await funcoes.visualizar_todos_posts()
-    const feed = document.getElementById("feed");
-    feed.innerHTML = "";
+  const posts = await funcoes.visualizar_todos_posts();
+  const feed = document.getElementById("feed");
+  feed.innerHTML = "";
 
-    for (const post of posts) {
+  for (const post of posts) {
+    const postDiv = document.createElement("div");
+    postDiv.classList.add("post");
+    console.log("Post recebido:", post);
 
-        const postDiv = document.createElement("div");
-        postDiv.classList.add("post");
+    const usuario = await funcoes.buscar_usuario_por_id(post.id_usario);
+    const nomeUsuario = usuario?.nome || "Usuário desconhecido";
 
-        const usuario = await funcoes.buscar_usuario_por_id(post.id_usario);
-        const nomeUsuario = usuario?.nome || "Usuário desconhecido";
+    const imagensHTML = post.foto_url
+      .map(url => `<img src="${url}" class="foto-post" alt="Post de ${nomeUsuario}">`)
+      .join("");
 
-        const imagensHTML = post.foto_url
-            .map(url => `<img src="${url}" class="foto-post" alt="Post de ${nomeUsuario}">`)
-            .join("");
+    const legenda = post.foto_comentario || "";
 
-        const legenda = post.foto_comentario || "";
+    postDiv.innerHTML = `
+      <div class="post-cabecalho">
+        <strong>${nomeUsuario}</strong>
+      </div>
+      <div class="post-imagens">${imagensHTML}</div>
+      <div class="post-legenda">${legenda}</div>
 
-        postDiv.innerHTML = `
-            <div class="post-cabecalho">
-                <strong>${nomeUsuario}</strong>
-            </div>
-            <div class="post-imagens">${imagensHTML}</div>
-            <div class="post-legenda">${legenda}</div>
+      <div class="post-info">
+        <button class="btn-like" data-id="${post._id}">❤️ Curtir</button>
+        <span class="contador-curtidas">${post.curtidas || 0}</span> curtidas
+      </div>
+    `;
 
-            <div class="post-info">
-                <button class="btn-like" data-id="${post.id}">❤️ Curtir</button>
-                <span class="contador-curtidas">${post.curtidas || 0}</span> curtidas
-            </div>
-        `;
+    // Quando clicar no botão:
+    postDiv.querySelector(".btn-like").addEventListener("click", async (event) => {
+      const idPost = event.currentTarget.dataset.id;
+      const idUsuario = localStorage.getItem("id");
 
-        postDiv.querySelector(".btn-like").addEventListener("click", async (event) => {
-            const idPost = event.currentTarget.dataset.id;
-            const idUsuario = localStorage.getItem("id");
+      const body = {
+        id_usuario: idUsuario,
+        id_post: idPost,
+      };
 
-            const body = {
-                id_usuario: idUsuario,
-                id_post: idPost
-            };
+      await curtir_post(body);
+    });
 
-            curtir_post(body)
-        });
-
-        feed.appendChild(postDiv);
-    }
+    feed.appendChild(postDiv);
+  }
 }
+
+
+document.getElementById('form-post').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const idUsuario = Number(localStorage.getItem("id")); // substitua pelo ID real do usuário logado
+  const comentario = document.getElementById('foto_comentario').value;
+  const foto = document.getElementById('foto_files').files[0];
+
+  if (!foto) {
+    document.getElementById('mensagem').textContent = "Por favor, selecione uma imagem.";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('foto_files', foto);
+
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/posts/inserir?id_usuario=${idUsuario}&foto_comentario=${encodeURIComponent(comentario)}`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Erro ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Post inserido:", data);
+    document.getElementById('mensagem').textContent = "Post enviado com sucesso!";
+  } catch (error) {
+    console.error("Erro ao enviar post:", error);
+    document.getElementById('mensagem').textContent = "Erro ao enviar post.";
+  }
+});
+
 
 window.addEventListener("DOMContentLoaded", () => {
     const usernameString = localStorage.getItem("username")
@@ -75,8 +118,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const username = document.getElementById("username")
     username.textContent = "Bem vindo " + usernameString
-    // carregarSeguidores(idString)
-    // carregarSeguindo(idString)
-    // ver_posts()
+    carregarSeguidores(idString)
+    carregarSeguindo(idString)
+    ver_posts()
 
 })
