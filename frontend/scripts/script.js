@@ -17,7 +17,7 @@ async function carregarSeguindo(id_usuario) {
 }
 
 async function curtir_post(body) {
-    const resposta = await funcoes.curtir_post(body)
+    const resposta = await funcoes.inserir_post_curtido(body)
     console.log(resposta)
 }
 

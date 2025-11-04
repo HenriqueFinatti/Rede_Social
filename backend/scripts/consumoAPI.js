@@ -102,7 +102,7 @@ export async function buscar_usuario_por_id(user_id){
 export async function alterar_senha(user_email, nova_senha){
   try{
     const response = await fetch(`http://127.0.0.1:8000/usuarios/atualizar_senha?usuario_email=${user_email}&nova_senha=${nova_senha}`, {
-      method: "GET",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -164,22 +164,6 @@ export async function visualizar_todos_posts() {
   }
 }
 
-export async function visualizar_todos_posts() {
-  try{
-    const response = await fetch("http://127.0.0.1:8000/posts/visualizar_todos", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-    const data = await response.json();
-    return data
-  }
-  catch (error){
-    console.error("Erro ao buscar os Posts");
-  }
-}
-
 export async function inserir_post_curtido(postCurtido) {
   try {
     const resposta = await fetch(`http://localhost:8000/posts_curtidos/inserir?post=${postCurtido}`, {
@@ -206,7 +190,7 @@ export async function visualizar_todas_curtidas(usuario){
     });
 
     const dados = await resposta.json();
-    
+    return dados
   } catch (erro) {
     console.error("Erro ao visualizar os posts:", erro.message);
   }
