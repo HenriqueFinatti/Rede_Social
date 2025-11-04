@@ -172,3 +172,59 @@ async def atualizar_comentario(_id: str, foto_comentario: str = Form(...)):
 
     except HTTPException:
         raise
+
+@router.put("/posts/adicionar_comentario",
+        response_description="Adicionando um novo comentário"
+)
+async def adicionar_comentario(_id: str, comentario: str = Form(...)):
+    try:
+        if not ObjectId.is_valid(_id):
+            raise HTTPException(
+                status_code=400,
+                detail="ID inválido, precisa ser um ObjectId de 24 caracteres"
+            )
+
+        post = await post_collection.find_one({"_id": ObjectId(_id)})
+        if post is None:
+            raise HTTPException(status_code=404, detail="Post não encontrado")
+
+        # adiciona o novo comentário à lista existente
+        await post_collection.find_one_and_update(
+            {"_id": ObjectId(_id)},
+            {"$push": {"comentario": comentario}}
+        )
+
+        return {
+            "msg": "Comentário adicionado com sucesso",
+            "comentario_adicionado": comentario
+        }
+
+    except HTTPException:
+        raise
+
+@router.put("/posts/curtir",
+        response_description="Incrementando curtida do post"
+)
+async def curtir_post(_id: str):
+    try:
+        if not ObjectId.is_valid(_id):
+            raise HTTPException(
+                status_code=400,
+                detail="ID inválido, precisa ser um ObjectId de 24 caracteres"
+            )
+
+        post = await post_collection.find_one({"_id": ObjectId(_id)})
+        if post is None:
+            raise HTTPException(status_code=404, detail="Post não encontrado")
+
+        await post_collection.find_one_and_update(
+            {"_id": ObjectId(_id)},
+            {"$inc": {"curtidas": 1}}  # incrementa 1 curtida
+        )
+
+        return {
+            "msg": "Curtida adicionada com sucesso"
+        }
+
+    except HTTPException:
+        raise
