@@ -18,11 +18,10 @@ Os dados de usuários possuem relacionamentos bem definidos, exigindo integridad
 ---
 
 ### **2. MongoDB (Não Relacional — Documentos)**
-**Usado para:**
-- posts  
+**Usado para:** 
 - comentários  
 - curtidas  
-- URLs das imagens armazenadas no Supabase Storage  
+- URLs das imagens  
 
 **Justificativa:**  
 Posts têm estrutura flexível e podem incluir diversos tipos de conteúdo (texto, imagem, vídeo). O MongoDB permite armazenar documentos com formatos variados sem necessidade de esquema rígido, o que facilita o desenvolvimento e escala.
@@ -42,7 +41,7 @@ Cassandra oferece desempenho ideal para operações de leitura e escrita em larg
 ## 🧩 Arquitetura dos Serviços (S1 e S2)
 
 ### **S1 — Serviço Cliente**
-Responsável por simular ações de usuário:
+Realiza as ações do usuário:
 - criar usuário  
 - criar post  
 - curtir post  
@@ -60,9 +59,9 @@ O backend pode ser pensado em módulos:
 
 - **S2-Users:** CRUD de usuários → PostgreSQL  
 - **S2-Posts:** CRUD de posts → MongoDB  
-- **S2-Feed:** gerenciamento de curtidas e feed → Cassandra  
+- **S2-Feed:** gerenciamento de curtidas → Cassandra  
 
-O serviço escolhe automaticamente qual banco usar de acordo com o tipo de dado manipulando.
+O serviço escolhe automaticamente qual banco usar de acordo com a ação realizada.
 
 ---
 
@@ -73,3 +72,5 @@ Execute o comando:
 
 ```bash
 fastapi dev .\backend\api\main.py
+
+***** completar
