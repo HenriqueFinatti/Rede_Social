@@ -31,7 +31,6 @@ Posts têm estrutura flexível e podem incluir diversos tipos de conteúdo (text
 ### **3. Cassandra (Distribuído — Orientado a Colunas)**
 **Usado para:**
 - posts curtidos pelos usuários  
-- consultas rápidas para geração do feed  
 
 **Justificativa:**  
 Cassandra oferece desempenho ideal para operações de leitura e escrita em larga escala, comuns em interações como likes, deslikes e montagem de feeds. Trabalha muito bem com acesso por chave primária, garantindo alta performance.
