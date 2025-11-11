@@ -71,5 +71,7 @@ Execute o comando:
 
 ```bash
 fastapi dev .\backend\api\main.py
+```
 
-***** completar
+Em seguida abra o arquivo login.html em seu navegador com a api já em funcionamento.
+E pronto, você terá acesso a todas as funções disponíveis na nossa rede social.
