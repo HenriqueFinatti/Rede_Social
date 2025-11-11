@@ -91,23 +91,14 @@ document.getElementById('form-post').addEventListener('submit', async (e) => {
   const formData = new FormData();
   formData.append('foto_files', foto);
 
-  try {
-    const response = await fetch(`http://127.0.0.1:8000/posts/inserir?id_usuario=${idUsuario}&foto_comentario=${encodeURIComponent(comentario)}`, {
-      method: 'POST',
-      body: formData,
-    });
+  data = funcoes.enviar_post(idUsuario, comentario, formData)
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Erro ${response.status}: ${errorText}`);
-    }
-
-    const data = await response.json();
-    console.log("Post inserido:", data);
-    document.getElementById('mensagem').textContent = "Post enviado com sucesso!";
-  } catch (error) {
+  if (data==null){
     console.error("Erro ao enviar post:", error);
     document.getElementById('mensagem').textContent = "Erro ao enviar post.";
+  } else {
+    console.log("Post inserido:", data);
+    document.getElementById('mensagem').textContent = "Post enviado com sucesso!";
   }
 });
 
